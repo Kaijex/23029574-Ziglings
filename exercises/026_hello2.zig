@@ -21,14 +21,14 @@ pub fn main(init: std.process.Init) !void {
     // We get a Writer for Standard Out...
     var stdout_writer = std.Io.File.stdout().writer(io, &.{});
     // ...and extract its interface so we can print() to it.
-    const stdout = &stdout_writer.interface;
+    var stdout = &stdout_writer.interface;
 
     // Unlike std.debug.print(), the Standard Out writer can fail
     // with an error. We don't care _what_ the error is, we want
     // to be able to pass it up as a return value of main().
     //
     // We just learned of a single statement which can accomplish this.
-    stdout.print("Hello world!\n", .{});
+    try stdout.print("Hello world!\n", .{});
 }
 
 // Now you must be thinking "Why would I need to do this instead of good
